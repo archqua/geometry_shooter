@@ -1,3 +1,68 @@
-[gd_scene format=2]
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://player_spawner.gd" type="Script" id=1]
+[ext_resource path="res://main.gd" type="Script" id=3]
+
+[sub_resource type="SegmentShape2D" id=1]
+
+[sub_resource type="Curve2D" id=2]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 71.6537, 682.933, 0, 0, 0, 0, 151.654, 118.933, 0, 0, 0, 0, 881.654, 116.933, 0, 0, 0, 0, 957.654, 688.933 )
+}
 
 [node name="main" type="Node"]
+script = ExtResource( 3 )
+
+[node name="walls" type="StaticBody2D" parent="."]
+collision_mask = 3
+
+[node name="top" type="CollisionShape2D" parent="walls"]
+position = Vector2( 1034, -10 )
+rotation = 1.5708
+scale = Vector2( 1, 110 )
+shape = SubResource( 1 )
+
+[node name="bottom" type="CollisionShape2D" parent="walls"]
+position = Vector2( 1034, 1034 )
+rotation = 1.5708
+scale = Vector2( 1, 110 )
+shape = SubResource( 1 )
+
+[node name="right" type="CollisionShape2D" parent="walls"]
+position = Vector2( 1034, 1034 )
+rotation = 3.14159
+scale = Vector2( 1, 110 )
+shape = SubResource( 1 )
+
+[node name="left" type="CollisionShape2D" parent="walls"]
+position = Vector2( -10, 1034 )
+rotation = 3.14159
+scale = Vector2( 1, 110 )
+shape = SubResource( 1 )
+
+[node name="enemy_spawn_path" type="Path2D" parent="."]
+curve = SubResource( 2 )
+
+[node name="enemy_spawn_location" type="PathFollow2D" parent="enemy_spawn_path"]
+position = Vector2( 71.6537, 682.933 )
+rotation = -1.42989
+
+[node name="enemy_spawn_timer" type="Timer" parent="."]
+
+[node name="start_button" type="Button" parent="."]
+margin_left = 364.0
+margin_top = 866.0
+margin_right = 636.0
+margin_bottom = 956.0
+text = "START"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="player_connect_fire_timer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="player_spawner" type="Position2D" parent="."]
+position = Vector2( 504.304, 786.122 )
+script = ExtResource( 1 )
